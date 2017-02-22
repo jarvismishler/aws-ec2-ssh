@@ -4,7 +4,7 @@
 curl -sLo /usr/local/bin/ep https://github.com/kreuzwerker/envplate/releases/download/v0.0.8/ep-linux && chmod +x /usr/local/bin/ep
 
 # Replace the variables within scripts
-ep import_users.sh
+/usr/local/bin/ep import_users.sh
 
 cp authorized_keys_command.sh /opt/authorized_keys_command.sh
 cp import_users.sh /opt/import_users.sh
