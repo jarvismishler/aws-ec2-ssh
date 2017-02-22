@@ -4,18 +4,18 @@
 # empty to not change sudo access, or give it the value '##ALL##' to have all
 # users be given sudo rights.
 SudoersGroup="${IAM_GRP_SUDOERS}"
-[[ -z "${SudoersGroup}" ]] || Sudoers=$(
+[[ -z "$SudoersGroup" ]] || Sudoers=$(
   aws iam get-group --group-name "${SudoersGroup}" --query "Users[].[UserName]" --output text
 );
 
 ShellAccessGroup="${IAM_GRP_SHELL_ACCESS}"
-[[ -z "${ShellAccessGroup}" ]] || ShellAccessUsers=$(
+[[ -z "$ShellAccessGroup" ]] || ShellAccessUsers=$(
   aws iam get-group --group-name "${ShellAccessGroup}" --query "Users[].[UserName]" --output text
 );
 
 aws iam list-users --query "Users[].[UserName]" --output text | while read User; do
 
-  if [[ ! -z "${ShellAccessGroup}" ]]; then
+  if [[ ! -z "$ShellAccessGroup" ]]; then
     SaveUserName="$User"
     SaveUserName=${SaveUserName//"+"/".plus."}
     SaveUserName=${SaveUserName//"="/".equal."}
@@ -28,7 +28,7 @@ aws iam list-users --query "Users[].[UserName]" --output text | while read User;
       fi
 
       # Lets check if this user should have sudo access
-      if [[ ! -z "${SudoersGroup}" ]]; then
+      if [[ ! -z "$SudoersGroup" ]]; then
         # sudo will read each file in /etc/sudoers.d, skipping file names that end
         # in ‘~’ or contain a ‘.’ character to avoid causing problems with package
         # manager or editor temporary/backup files.
