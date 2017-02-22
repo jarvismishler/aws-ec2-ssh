@@ -5,12 +5,12 @@
 # users be given sudo rights.
 SudoersGroup="${IAM_GRP_SUDOERS}"
 [[ -z "$SudoersGroup" ]] || Sudoers=$(
-  aws iam get-group --group-name "${SudoersGroup}" --query "Users[].[UserName]" --output text
+  aws iam get-group --group-name "$SudoersGroup" --query "Users[].[UserName]" --output text
 );
 
 ShellAccessGroup="${IAM_GRP_SHELL_ACCESS}"
 [[ -z "$ShellAccessGroup" ]] || ShellAccessUsers=$(
-  aws iam get-group --group-name "${ShellAccessGroup}" --query "Users[].[UserName]" --output text
+  aws iam get-group --group-name "$ShellAccessGroup" --query "Users[].[UserName]" --output text
 );
 
 aws iam list-users --query "Users[].[UserName]" --output text | while read User; do
