@@ -1,14 +1,15 @@
 #!/bin/bash
 
+# Lets bootstrap some variables we need.
+source config.sh
+
 # Specify an IAM group for users who should be given sudo privileges, or leave
 # empty to not change sudo access, or give it the value '##ALL##' to have all
 # users be given sudo rights.
-SudoersGroup="${IAM_GRP_SUDOERS}"
 [[ -z "${SudoersGroup}" ]] || Sudoers=$(
   aws iam get-group --group-name "${SudoersGroup}" --query "Users[].[UserName]" --output text
 );
 
-ShellAccessGroup="${IAM_GRP_SHELL_ACCESS}"
 [[ -z "${ShellAccessGroup}" ]] || ShellAccessUsers=$(
   aws iam get-group --group-name "${ShellAccessGroup}" --query "Users[].[UserName]" --output text
 );
