@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Lets bootstrap some variables we need.
-source config.sh
+source /aws-ec2-ssh/config.sh
 
 # Specify an IAM group for users who should be given sudo privileges, or leave
 # empty to not change sudo access, or give it the value '##ALL##' to have all
